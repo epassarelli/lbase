@@ -15,20 +15,19 @@
 
 
                     <div class="mb-3 col-span-2">
-                        <label for="categoriaPadre_id" class="block text-gray-700 text-sm font-bold mb-2">Categoria
+                        <label for="categoriaPadre_id" class="block text-gray-700 text-sm font-bold mb-2">Categoría
                             padre:</label>
-                        <input type="text"
+                        <select
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="categoriaPadre_id" wire:model="categoriaPadre_id">
-                    </div>
+                            wire:model="categoriaPadre_id">
 
-                    <div class="mb-3 col-span-2">
-                        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripcion:</label>
-                        <textarea rows="2"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="descripcion" wire:model="descripcion"></textarea>
+                            @forelse ($categoriasAnt as $item)
+                                <option value="{{ $item->id }}">{{ $item->categoria }}</option>
+                            @empty
+                                <option value="1">Sin categoría padre</option>
+                            @endforelse
+                        </select>
                     </div>
-
                     <div class="mb-3">
                         <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
                         <input type="text"
@@ -44,14 +43,17 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="slug" wire:model="slug">
                     </div>
-
-
+                    <div class="mb-3 col-span-2">
+                        <label for="descripcion" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
+                        <textarea rows="2"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="descripcion" wire:model="descripcion"></textarea>
+                    </div>
 
                     <div class="mb-3">
                         <span class="block">.</span>
-                        {{-- <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="menu" wire:model="menu"> --}}
                         <input type="checkbox" class="default:ring-2 p-4" id="menu" wire:model="menu" />
-                        <label for="menu" class=" text-gray-700 text-sm font-bold mb-2">Va en menu
+                        <label for="menu" class=" text-gray-700 text-sm font-bold mb-2">Va en menú
                             principal:</label>
                     </div>
 
@@ -65,10 +67,24 @@
 
                     <div class="mb-3 col-span-2">
                         <label for="imagen" class="block text-gray-700 text-sm font-bold mb-2">Imagen:</label>
-                        <input type="file" id="imagen" wire:model="imagen">
-                        <!-- <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="imagen" wire:model="imagen"> -->
+                        <input type="file" id="imagen" wire:model="imagen" wire:change="cambioImagen">
                         <x-jet-input-error for="imagen" />
                     </div>
+
+
+                    <div class="mb-3">
+                        @if ($cambioImg)
+                            @if (gettype($imagen) === 'object')
+                                <img class="h-20 w-20" src="{{ $imagen->temporaryUrl() }}">
+                            @endif
+                        @else
+                            @if ($accion === 'editar')
+                                <img class="h-20 w-20" src="{{ asset('storage/categorias/' . $imagen) }}"
+                                    alt="">
+                            @endif
+                        @endif
+                    </div>
+
 
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse col-span-2">
                         <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">

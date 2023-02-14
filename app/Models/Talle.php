@@ -10,6 +10,7 @@ class Talle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'talle'
+        'talle',
+        'estado'
     ];
 }

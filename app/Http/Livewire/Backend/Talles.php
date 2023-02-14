@@ -18,6 +18,11 @@ class Talles extends Component
     use WithPagination;
 
     protected $talles;
+    protected $listeners = ['delete'];
+
+    protected $rules = [
+        'talle' => 'required|max:30',
+    ];
 
     public function render()
     {
@@ -47,6 +52,7 @@ class Talles extends Component
     public function limpiarCampos()
     {
         $this->talle = '';
+        $this->id_talle = '';
     }
 
     public function editar($id)
@@ -57,14 +63,14 @@ class Talles extends Component
         $this->abrirModal();
     }
 
-    public function borrar($id)
+    public function delete($id)
     {
         Talle::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
     }
 
     public function guardar()
     {
+        $this->validate();
         Talle::updateOrCreate(
             ['id' => $this->id_talle],
             [
@@ -78,7 +84,7 @@ class Talles extends Component
             'message',
             $this->id_talle ? '¡Actualización exitosa!' : '¡Alta Exitosa!'
         );
-
+        $this->emit('alertSave');
         $this->cerrarModal();
         $this->limpiarCampos();
     }

@@ -21,14 +21,16 @@
                         <input type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="sigla" wire:model="sigla">
+                        <x-jet-input-error for="sigla" />
                     </div>
 
                     <div class="mb-4 col-span-2">
                         <label for="presentacion"
-                            class="block text-gray-700 text-sm font-bold mb-2">Presentacion</label>
+                            class="block text-gray-700 text-sm font-bold mb-2">Presentación</label>
                         <input type="text"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="presentacion" wire:model="presentacion">
+                        <x-jet-input-error for="presentacion" />
                     </div>
 
 

@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductoSeeder::class);
         $this->call(Producto_categoriaSeeder::class);
         $this->call(SkuSeeder::class);
+        $this->call(FaqSeeder::class);
+        $this->call(SitioSeeder::class);
+        $this->call(TipomovimientoSeeder::class);
         // \App\Models\Categoria::factory(15)->create();
     }
 }

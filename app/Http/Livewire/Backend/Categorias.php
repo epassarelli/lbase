@@ -11,35 +11,56 @@ use Illuminate\Support\Str;
 
 class Categorias extends Component
 {
-    public $categoriaPadre_id, $categoria, $descripcion, $slug, $imagen, $menu, $orden, $estado;
+    public $categoriaPadre_id, $categoria, $descripcion, $slug, $imagen, $menu, $orden, $estado, $id_categoria, $categoriasAnt;
 
     public $modal = false;
     public $search;
     public $sort = 'id';
     public $order = 'desc';
+    public $accion;
+    public $cambioImg = false;
 
     protected $categorias;
 
-    protected $rules = [
-        'categoria' => 'required|max:20',
-        'imagen' => 'required|mimes:jpg,png|max:1024',
-    ];
+    protected $listeners = ['delete'];
 
     use WithPagination;
     use WithFileUploads;
 
+    protected function rules()
+    {
+        if (($this->cambioImg === true && $this->accion === 'editar') ||
+            $this->accion === 'crear'
+        ) {
+            return [
+                'categoria' => 'required|max:20',
+                'imagen' => 'required|mimes:jpg,png|max:1024',
+            ];
+        } else {
+            return [
+                'categoria' => 'required|max:20',
+            ];
+        }
+    }
+
     public function render()
     {
-        $this->categorias = Categoria::where('descripcion', 'like', '%' . $this->search . '%')
-            ->orWhere('categoria', 'like', '%' . $this->search . '%')
+        $this->categoriasAnt = Categoria::where('estado', 1)->get();
+        $this->categorias = Categoria::where('id', '>', 1)
+            ->where(
+                function ($q) {
+                    $q->where('descripcion', 'like', '%' . $this->search . '%')
+                        ->orWhere('categoria', 'like', '%' . $this->search . '%');
+                }
+            )
             ->orderBy($this->sort, $this->order)
             ->paginate(5);
-
         return view('livewire.backend.categorias', ['categorias' => $this->categorias]);
     }
 
     public function crear()
     {
+        $this->accion = 'crear';
         $this->limpiarCampos();
         $this->abrirModal();
     }
@@ -52,6 +73,7 @@ class Categorias extends Component
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->cambioImg = false;
     }
 
     public function limpiarCampos()
@@ -70,6 +92,8 @@ class Categorias extends Component
 
     public function editar($id)
     {
+        $this->accion = 'editar';
+
         $categoria = Categoria::findOrFail($id);
         $this->id_categoria = $id;
         $this->categoriaPadre_id = $categoria->categoriaPadre_id;
@@ -88,13 +112,26 @@ class Categorias extends Component
         session()->flash('message', 'Registro eliminado correctamente');
     }
 
+    public function delete($id)
+    {
+        Categoria::find($id)->delete();
+    }
+
     public function guardar()
     {
-
         $this->validate();
 
-        $imagen_name = 'CV_' . $this->imagen->getClientOriginalName();
-        $upload_imagen = $this->imagen->storeAs('categorias', $imagen_name);
+        if ($this->cambioImg) {
+            ////
+            //// borrar imagen anterior storage
+            ////
+            $imagen_name = $this->imagen->getClientOriginalName();
+            $upload_imagen = $this->imagen->storeAs('categorias', $imagen_name);
+
+            $this->cambioImg = false;
+        } else {
+            $imagen_name = $this->imagen;
+        }
 
         Categoria::updateOrCreate(
             ['id' => $this->id_categoria],
@@ -111,10 +148,7 @@ class Categorias extends Component
             ]
         );
 
-        session()->flash(
-            'message',
-            $this->id_categoria ? '¡Actualización exitosa!' : '¡Alta Exitosa!'
-        );
+        $this->emit('alertSave');
 
         $this->cerrarModal();
         $this->limpiarCampos();
@@ -133,5 +167,10 @@ class Categorias extends Component
             $this->sort = $sort;
             $this->order = 'asc';
         }
+    }
+
+    public function cambioImagen()
+    {
+        $this->cambioImg = true;
     }
 }

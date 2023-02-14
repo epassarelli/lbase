@@ -18,6 +18,11 @@ class Colores extends Component
     use WithPagination;
 
     protected $colores;
+    protected $listeners = ['delete'];
+
+    protected $rules = [
+        'color' => 'required|max:30',
+    ];
 
     public function render()
     {
@@ -47,6 +52,7 @@ class Colores extends Component
     public function limpiarCampos()
     {
         $this->color = '';
+        $this->id_color = '';
     }
 
     public function editar($id)
@@ -57,14 +63,14 @@ class Colores extends Component
         $this->abrirModal();
     }
 
-    public function borrar($id)
+    public function delete($id)
     {
         Color::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
     }
 
     public function guardar()
     {
+        $this->validate();
         Color::updateOrCreate(
             ['id' => $this->id_color],
             [
@@ -72,13 +78,7 @@ class Colores extends Component
             ]
         );
 
-        //session(['idCarrito' => $this->id_parametro]);
-
-        session()->flash(
-            'message',
-            $this->id_color ? '¡Actualización exitosa!' : '¡Alta Exitosa!'
-        );
-
+        $this->emit('alertSave');
         $this->cerrarModal();
         $this->limpiarCampos();
     }
