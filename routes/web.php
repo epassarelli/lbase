@@ -31,19 +31,19 @@ use App\Http\Livewire\Backend\Historias;
 
 // Route::get('/shop/{categoria}/{producto}', [ProductoController::class, 'show'])->name('productos.show');
 
-Route::get('categorias', [CategoriaController::class, 'index']);
+// Route::get('categorias', [CategoriaController::class, 'index']);
 
 Route::get('/shop/{categoria}/{producto}', Product::class)->name('productos.show');
 
 
-Route::get('/mipanel', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/mipanel', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 
 Route::get('shop/{categoria}', [ProductoController::class, 'categoria'])->name('productos.categoria');
 Route::get('/shop', [ProductoController::class, 'index'])->name('productos.index');
-// Route::get('/', [ProductoController::class, 'index'])->name('productos.index');
+Route::get('/', [ProductoController::class, 'index'])->name('productos.index');
 
 Route::get('contacto', [ContactController::class, 'index'])->name('contacto');
 Route::post('contacto', [ContactController::class, 'store'])->name('contacto.store');
@@ -53,9 +53,9 @@ Route::get('/nosotros', Nosotros::class)->name('nosotros');
 
 Route::get('preguntas-frecuentes', [FaqController::class, 'index'])->name('faqs.index');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 Route::middleware([
     'auth:sanctum',

@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Ecommerce</b> WP',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => asset('storage/logo-admin.jpg'),
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,8 +86,8 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
+            'path' => asset('storage/logo-admin.jpg'),
+            'alt' => 'WP Admin',
             'class' => '',
             'width' => 50,
             'height' => 50,
@@ -109,8 +109,8 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'path' => asset('storage/logo-admin.jpg'),
+            'alt' => 'Ecommerce Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'dashboard',
+    'dashboard_url' => '/dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -310,6 +310,11 @@ return [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
+        ],
+        [
+            'text'        => 'dashboard',
+            'url'         => 'dashboard',
+            'icon'        => 'far fa-fw fa-file',
         ],
         [
             'text'        => 'pages',
