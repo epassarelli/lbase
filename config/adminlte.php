@@ -312,11 +312,6 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'dashboard',
-            'url'         => 'dashboard',
-            'icon'        => 'far fa-fw fa-file',
-        ],
-        [
             'text'        => 'pages',
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',

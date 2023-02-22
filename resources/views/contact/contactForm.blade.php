@@ -1,10 +1,10 @@
 <x-app-layout>
 
-    <x-slot name="header">
+    {{-- <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Contáctenos {{ session('idCarrito') }}
         </h2>
-    </x-slot>
+    </x-slot> --}}
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px6 lg:px-8">
@@ -18,88 +18,6 @@
                             width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </section>
 
-
-                    {{-- <div class="row mt-5 mb-5">
-                        <div class="col-10 offset-1 mt-5">
-                            <div class="card">
-
-                                <div class="card-body">
-
-                                    @if (Session::has('success'))
-                                        <div class="alert alert-success">
-                                            {{ Session::get('success') }}
-                                        </div>
-                                    @endif
-
-                                    <form method="POST" action="{{ route('contacto.store') }}" id="contactUSForm">
-                                        {{ csrf_field() }}
-
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <strong>Nombre:</strong>
-                                                <input type="text" name="nombre" class="form-control"
-                                                    placeholder="Nombre" value="{{ old('nombre') }}">
-                                                @if ($errors->has('nombre'))
-                                                    <span class="text-danger">{{ $errors->first('nombre') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group">
-                                                <strong>Correo:</strong>
-                                                <input type="text" name="correo" class="form-control"
-                                                    placeholder="correo" value="{{ old('correo') }}">
-                                                @if ($errors->has('correo'))
-                                                    <span class="text-danger">{{ $errors->first('correo') }}</span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Telefono:</strong>
-                                                    <input type="text" name="telefono" class="form-control"
-                                                        placeholder="telefono" value="{{ old('telefono') }}">
-                                                    @if ($errors->has('telefono'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('telefono') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <strong>Asunto:</strong>
-                                                    <input type="text" name="asunto" class="form-control"
-                                                        placeholder="asunto" value="{{ old('asunto') }}">
-                                                    @if ($errors->has('asunto'))
-                                                        <span class="text-danger">{{ $errors->first('asunto') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <strong>Mensaje:</strong>
-                                                    <textarea name="mensaje" rows="3" class="form-control">{{ old('mensaje') }}</textarea>
-                                                    @if ($errors->has('mensaje'))
-                                                        <span
-                                                            class="text-danger">{{ $errors->first('mensaje') }}</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-success btn-submit">Enviar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
 
 
                     <div class="mt-10 sm:mt-0">
