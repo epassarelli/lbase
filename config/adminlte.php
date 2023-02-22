@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>Ecommerce</b> WP',
-    'logo_img' => asset('storage/logo-admin.jpg'),
+    'logo_img' => '/public/storage/logo-admin.jpg',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => asset('storage/logo-admin.jpg'),
+            'path' => 'public/storage/logo-admin.jpg',
             'alt' => 'WP Admin',
             'class' => '',
             'width' => 50,
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => asset('storage/logo-admin.jpg'),
+            'path' => 'public/storage/logo-admin.jpg',
             'alt' => 'Ecommerce Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -310,6 +310,11 @@ return [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
+        ],
+        [
+            'text'        => 'dashboard',
+            'url'         => 'dashboard',
+            'icon'        => 'far fa-fw fa-file',
         ],
         [
             'text'        => 'pages',
