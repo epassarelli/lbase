@@ -7,20 +7,18 @@
     <title>@yield('title') - Nombre de la aplicación</title>
 
     <!-- Estilos -->
-    {{-- @stack('styles') --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-
-    @livewireStyles
+    @stack('styles')
+    {{-- @livewireStyles --}}
 
     <!-- Scripts -->
-    {{-- @stack('scripts') --}}
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}" defer></script>
-
+    @stack('scripts')
 </head>
 
 
@@ -103,6 +101,14 @@
     </div>
 
     @livewireScripts
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    {{-- <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script> --}}
 
     <script>
         Livewire.on('alertSave', function() {
@@ -138,6 +144,6 @@
             })
         })
     </script>
-</body>
+
 
 </html>

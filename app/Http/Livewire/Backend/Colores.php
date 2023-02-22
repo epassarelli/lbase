@@ -30,7 +30,8 @@ class Colores extends Component
             ->orderBy($this->sort, $this->order)
             ->paginate(5);
 
-        return view('livewire.backend.colores', ['colores' => $this->colores]);
+        return view('livewire.backend.colores', ['colores' => $this->colores])
+            ->extends('layouts.backend');
     }
 
     public function crear()
